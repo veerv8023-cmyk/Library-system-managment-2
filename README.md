@@ -409,7 +409,20 @@ GROUP BY 1, 2
 **Task 18: Identify Members Issuing High-Risk Books**  
 Write a query to identify members who have issued books more than twice with the status "damaged" in the books table. Display the member name, book title, and the number of times they've issued damaged books.    
 
+```sql
+select * from(
+select  m.member_name,r.book_quality,i.issued_id,
+	  i.issued_book_name,count(i.issued_id)
 
+from issued_status as i
+join   members as m
+on i.issued_member_id=m.member_id
+join return_status as r
+on i.issued_id=r.issued_id
+group by 1,2,3
+)
+where book_quality ='Damaged';
+```
 **Task 19: Stored Procedure**
 Objective:
 Create a stored procedure to manage the status of books in a library system.
@@ -520,3 +533,4 @@ This project showcases SQL skills essential for database management and analysis
 - **Discord**: [Join our community for learning and collaboration](https://discord.gg/36h5f2Z5PK)
 
 Thank you for your interest in this project!
+
